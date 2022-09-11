@@ -1,9 +1,13 @@
+#![allow(warnings)]
 use std::fs::File;
 use std::fs::write;
 use std::fs::create_dir;
 use std::io::prelude::*;
 use serde_json::Value as JsonValue;
 use serde::de::DeserializeOwned;
+fn main(){
+
+}
 
 pub fn create_file(path:String,file_name:String){
 match create_dir(&path){
@@ -71,7 +75,7 @@ pub fn extractor <T:DeserializeOwned> (_name:String,_path:String)->T{
 
 pub fn store_var(path:&String,key:&String,value:&String){
     println!("path uh {}",path);
-    let mut rcon = read_file(path);
+    let rcon = read_file(path);
     let mut rjcon = read_json(&rcon);
     rjcon[key]=JsonValue::from(value.to_string());
     write_json(path,&rjcon);
@@ -79,7 +83,7 @@ pub fn store_var(path:&String,key:&String,value:&String){
 
 pub fn retrive_var(path:&String,key:&String)->String{
     println!("path uh {}",path);
-    let mut rcon = read_file(path);
-    let mut rjcon = read_json(&rcon);
+    let rcon = read_file(path);
+    let rjcon = read_json(&rcon);
     rjcon[key].to_string()
 }
